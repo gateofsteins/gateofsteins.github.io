@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>在VScode中预览书写的markdown文件</title>
+      <link href="/2023/05/28/%E5%9C%A8VScode%E4%B8%AD%E9%A2%84%E8%A7%88%E4%B9%A6%E5%86%99%E7%9A%84markdown%E6%96%87%E4%BB%B6/"/>
+      <url>/2023/05/28/%E5%9C%A8VScode%E4%B8%AD%E9%A2%84%E8%A7%88%E4%B9%A6%E5%86%99%E7%9A%84markdown%E6%96%87%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<p>在VScode中，可以实现对markdown文件中的编写，首先是进行相关插件的安装，具体参考链接<br><a href="https://zhuanlan.zhihu.com/p/56943330">https://zhuanlan.zhihu.com/p/56943330</a></p><p>在具体的实现VScode中，在编写相关markdown文件时，首先ctrl+K,在按v，即可实现相关预览功能。<br><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528103659.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 使用技巧 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>基于多特征提取的换脸视频检测</title>
       <link href="/2023/05/27/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%E7%9A%84%E6%8D%A2%E8%84%B8%E8%A7%86%E9%A2%91%E6%A3%80%E6%B5%8B/"/>
       <url>/2023/05/27/%E5%9F%BA%E4%BA%8E%E5%A4%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%E7%9A%84%E6%8D%A2%E8%84%B8%E8%A7%86%E9%A2%91%E6%A3%80%E6%B5%8B/</url>
