@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>两数相加</title>
+      <link href="/2023/05/28/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"/>
+      <url>/2023/05/28/%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528163045.png"><br>本题的主要思路是关于十进制数的相加，，这里由于链表将十进制数逆序存放，所以一次遍历链表，从个位开始计算，符号和数学上的计算原理。</p><p>这里的难点是当链表长度不同的情况，需要如何处理，这里采取的方法是用0来补位，即长度短的链表后续用0来进行计算，避免了大量的判断结构。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Definition <span class="keyword">for</span> singly-linked <span class="built_in">list</span>.</span><br><span class="line"> * struct ListNode &#123;</span><br><span class="line"> *     <span class="built_in">int</span> val;</span><br><span class="line"> *     ListNode *<span class="built_in">next</span>;</span><br><span class="line"> *     ListNode() : val(<span class="number">0</span>), <span class="built_in">next</span>(nullptr) &#123;&#125;</span><br><span class="line"> *     ListNode(<span class="built_in">int</span> x) : val(x), <span class="built_in">next</span>(nullptr) &#123;&#125;</span><br><span class="line"> *     ListNode(<span class="built_in">int</span> x, ListNode *<span class="built_in">next</span>) : val(x), <span class="built_in">next</span>(<span class="built_in">next</span>) &#123;&#125;</span><br><span class="line"> * &#125;;</span><br><span class="line"> */</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">public:</span><br><span class="line">    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) &#123;</span><br><span class="line">        ListNode *head = nullptr, *tail = nullptr;</span><br><span class="line">        <span class="built_in">int</span> carry = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span> (l1 || l2) &#123;</span><br><span class="line">            <span class="built_in">int</span> n1 = l1 ? l1-&gt;val: <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">int</span> n2 = l2 ? l2-&gt;val: <span class="number">0</span>;</span><br><span class="line">            <span class="built_in">int</span> <span class="built_in">sum</span> = n1 + n2 + carry;</span><br><span class="line">            <span class="keyword">if</span> (!head) &#123;</span><br><span class="line">                head = tail = new ListNode(<span class="built_in">sum</span> % <span class="number">10</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                tail-&gt;<span class="built_in">next</span> = new ListNode(<span class="built_in">sum</span> % <span class="number">10</span>);</span><br><span class="line">                tail = tail-&gt;<span class="built_in">next</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            carry = <span class="built_in">sum</span> / <span class="number">10</span>;</span><br><span class="line">            <span class="keyword">if</span> (l1) &#123;</span><br><span class="line">                l1 = l1-&gt;<span class="built_in">next</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (l2) &#123;</span><br><span class="line">                l2 = l2-&gt;<span class="built_in">next</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (carry &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            tail-&gt;<span class="built_in">next</span> = new ListNode(carry);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>这里利用了三亩运算符来进行相关0的补充，carry代表相关的进位，利用head作为返回指针，tail来进行遍历。<br><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528164458.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 链表 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>两数之和</title>
       <link href="/2023/05/28/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
       <url>/2023/05/28/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
