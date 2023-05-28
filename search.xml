@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>两数之和</title>
+      <link href="/2023/05/28/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+      <url>/2023/05/28/%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528102555.png"></p><p>在这个题目中，主要思想就是找数。<br>主要分为两个思路：</p><ol><li><p>暴力搜寻</p><p>简单来说就是for嵌套</p></li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;<span class="built_in">int</span>&gt; twoSum(vector&lt;<span class="built_in">int</span>&gt;&amp; nums, <span class="built_in">int</span> target) &#123;</span><br><span class="line">        <span class="built_in">int</span> n=nums.size();</span><br><span class="line">        <span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="built_in">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(nums[j]==target-nums[i])&#123;</span><br><span class="line">                    <span class="keyword">return</span> &#123;i,j&#125;;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>在上述代码中，注意一个细节，在if的判断条件中，这里并没有采用加法条件，主要原因是如果采用加法就很可能出现溢出的情况，所以采用减法的方式，这样就可以避免这种问题。具体执行时间大概在：<br><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528111032.png"></p><ol start="2"><li><p>哈希表查询</p><p> 哈希表是一种查找结构，可以实现key和value的一一对应，具体哈希表内部采用的算法，可看<a href="https://blog.csdn.net/Peealy/article/details/116895964">https://blog.csdn.net/Peealy/article/details/116895964</a></p><p> 在代码中主要是采用unordered_map和unordered_set来进行相关操作，其具体操作在代码中的体现可见<a href="https://blog.csdn.net/m0_52318340/article/details/126050490">https://blog.csdn.net/m0_52318340/article/details/126050490</a></p></li></ol><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">public:</span><br><span class="line">    vector&lt;<span class="built_in">int</span>&gt; twoSum(vector&lt;<span class="built_in">int</span>&gt;&amp; nums, <span class="built_in">int</span> target) &#123;</span><br><span class="line">        unordered_map&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; hashtable;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; nums.size(); ++i) &#123;</span><br><span class="line">            auto it = hashtable.find(target - nums[i]);</span><br><span class="line">            <span class="keyword">if</span> (it != hashtable.end()) &#123;//在哈希表中找值</span><br><span class="line">                <span class="keyword">return</span> &#123;it-&gt;second, i&#125;;</span><br><span class="line">            &#125;</span><br><span class="line">            hashtable[nums[i]] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>在代码中，逻辑主要是遍历数组，利用哈希表查找是否有target-nums[i]的key，如果有，则返回对应value和序号组成的数组，否则，进行hash表插值，key为数组元素的值，value为数组元素的序号。<br>整体运行消耗：<br><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230528121440.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 数组 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>在VScode中预览书写的markdown文件</title>
       <link href="/2023/05/28/%E5%9C%A8VScode%E4%B8%AD%E9%A2%84%E8%A7%88%E4%B9%A6%E5%86%99%E7%9A%84markdown%E6%96%87%E4%BB%B6/"/>
       <url>/2023/05/28/%E5%9C%A8VScode%E4%B8%AD%E9%A2%84%E8%A7%88%E4%B9%A6%E5%86%99%E7%9A%84markdown%E6%96%87%E4%BB%B6/</url>
