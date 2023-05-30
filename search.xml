@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>N字形变换</title>
+      <link href="/2023/05/30/N%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/"/>
+      <url>/2023/05/30/N%E5%AD%97%E5%BD%A2%E5%8F%98%E6%8D%A2/</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230530143514.png"><br>这里我想到的第一个方法就是用数组进行模拟，这里后来借鉴了一下别人的思路，利用string的vector二维数组进行模拟，在实际变换中，难点主要是字符串的顺序如何确定，因为在实际遍历时由于N型串方向上的变换，导致遍历时的数组序号不好确定，所以在实际代码中，可以采取标志位的方式进行处理。</p><p>我们可以这样想，当N型串需要转向时主要是到达N型的顶点，在代码中的具体表现即是string数组的序号为0或numRows-1，这样，我们通过顺序遍历字符串，到达顶点时改变flag，使得数组序号变化相反，同时依次将遍历到的字符存入各个数组中，这样就可以实现对其的模拟过程。</p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">string <span class="title">convert</span><span class="params">(string s, <span class="type">int</span> numRows)</span> </span>&#123;</span><br><span class="line">        <span class="type">int</span> n=s.<span class="built_in">size</span>();</span><br><span class="line">        <span class="keyword">if</span>(numRows==<span class="number">1</span>)<span class="keyword">return</span> s;</span><br><span class="line">        <span class="function">vector&lt;string&gt; <span class="title">rows</span><span class="params">(numRows)</span></span>;</span><br><span class="line">        <span class="type">int</span> flag=<span class="number">1</span>,idrows=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            </span><br><span class="line">            rows[idrows].<span class="built_in">push_back</span>(s[i]);</span><br><span class="line">            idrows += flag;</span><br><span class="line">            <span class="keyword">if</span>(idrows==numRows<span class="number">-1</span>||idrows==<span class="number">0</span>)flag=-flag;</span><br><span class="line">        &#125;</span><br><span class="line">        string res;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> row:rows)</span><br><span class="line">        &#123;</span><br><span class="line">            res += row;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p>需要注意的一点是在代码中我们是先存字符再判断，这样对numRows&#x3D;1的情况不适用，所以需要对其特殊处理。<br><img src="https://raw.githubusercontent.com/gateofsteins/blogImage/main/20230530144839.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 刷题 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C++ </tag>
+            
+            <tag> 模拟 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>最长回文子串</title>
       <link href="/2023/05/29/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/"/>
       <url>/2023/05/29/%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</url>
