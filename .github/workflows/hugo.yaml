@@ -2,57 +2,53 @@
 name: Deploy Hugo site to Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches:
-      - main # 分支名称默认为main
-
-  # Allows you to run this workflow manually from the Actions tab
+      - main
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
-# Default to bash
 defaults:
   run:
     shell: bash
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.164.0 # Hugo版本号
+      HUGO_VERSION: 0.164.0
     steps:
       - name: Install Hugo CLI
         run: |
           wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
           && sudo dpkg -i ${{ runner.temp }}/hugo.deb
+          
       - name: Install Dart Sass
         run: sudo snap install dart-sass
+        
       - name: Checkout
         uses: actions/checkout@v4
         with:
           submodules: recursive
           fetch-depth: 0
+          
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5 # 升级至 v5
+        uses: actions/configure-pages@v5
+        
       - name: Install Node.js dependencies
         run: "[[ -f package-lock.json || -f npm-shrinkwrap.json ]] && npm ci || true"
+        
       - name: Build with Hugo
         env:
-          # For maximum backward compatibility with Hugo modules
           HUGO_ENVIRONMENT: production
           HUGO_ENV: production
         run: |
@@ -60,10 +56,12 @@ jobs:
             --gc \
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
+            
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3 # 升级至 v3（解决弃用报错的核心）
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public  # ⚠️ 核心修复：明确指定 Hugo 的默认输出目录，防止找不到 _site/ 报错
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
@@ -73,4 +71,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4 # 升级至 v4
+        uses: actions/deploy-pages@v4
