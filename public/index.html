@@ -122,6 +122,31 @@
     </nav>
 </header>
 <main class="main"> 
+
+<article class="first-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">如何利用Github Pages和hugo建立自己的博客
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>使用Hugo &#43; Github Pages建立个人博客 注意：搭建时环境为windows 11
+1.下载git 这是windows下载地址https://git-scm.com/install/windows
+2.注册Github账号 略
+3. 下载Hugo https://github.com/gohugoio/hugo/releases/tag/v0.164.0
+下载完成后，将对应exe文件放在你自己设定的文件夹，设置环境变量
+hugo version 有输出版本号，即为配置成功
+4.快速建立博客框架 首先选择你要访问博客项目的文件夹
+在那个文件夹打开cmd
+依次输入
+# 在目录中为您的博客创建一个以myblog命名的文件夹目录结构 hugo new site myblog # 将当前目录更改为博客的根目录 cd myblog # 在当前目录中初始化一个空的 Git 存储库 git init # 将PaperMod主题克隆到博客目录结构中，并将其作为Git子模块themes添加到您的博客中 git submodule add --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod # 在博客配置文件hugo.toml(位于根目录)中添加一行，表明为PaperMod主题 echo &#39;theme = &#39;PaperMod&#39; &gt;&gt; hugo.toml # 启动Hugo的开发服务器来预览博客 hugo server 5.向网站添加新页面 # posts为你文章存储的文件夹名，可任取 # 默认生成路径在content文件夹下 #主要md文件必须以index命名 hugo new posts/文章标题/index.md 用编辑器打开创建的index.md可以看到其默认内容
+date = &#39;2026-07-28T01:21:07&#43;08:00&#39; draft = true title = &#39;Hello_world&#39; 这里draft为true，代表处于草稿状态
+...</p>
+  </div>
+  <footer class="entry-footer">
+
+<span title='2026-07-28 13:18:29 +0800 CST'>July 28, 2026</span></footer>
+  <a class="entry-link" aria-label="post link to 如何利用Github Pages和hugo建立自己的博客" href="https://example.org/posts/blog/"></a>
+</article>
     </main>
     
 <footer class="footer">

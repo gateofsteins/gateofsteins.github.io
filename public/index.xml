@@ -6,7 +6,57 @@
     <description>Recent content on My New Hugo Project</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate></lastBuildDate>
+    <lastBuildDate>Tue, 28 Jul 2026 13:18:29 +0800</lastBuildDate>
     <atom:link href="https://example.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何利用Github Pages和hugo建立自己的博客</title>
+      <link>https://example.org/posts/blog/</link>
+      <pubDate>Tue, 28 Jul 2026 13:18:29 +0800</pubDate>
+      <guid>https://example.org/posts/blog/</guid>
+      <description>&lt;h1 id=&#34;使用hugo--github-pages建立个人博客&#34;&gt;使用Hugo + Github Pages建立个人博客&lt;/h1&gt;
+&lt;p&gt;注意：搭建时环境为windows 11&lt;/p&gt;
+&lt;h2 id=&#34;1下载git&#34;&gt;1.下载git&lt;/h2&gt;
+&lt;p&gt;这是windows下载地址https://git-scm.com/install/windows&lt;/p&gt;
+&lt;h2 id=&#34;2注册github账号&#34;&gt;2.注册Github账号&lt;/h2&gt;
+&lt;p&gt;略&lt;/p&gt;
+&lt;h2 id=&#34;3-下载hugo&#34;&gt;3. 下载Hugo&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/gohugoio/hugo/releases/tag/v0.164.0&#34;&gt;https://github.com/gohugoio/hugo/releases/tag/v0.164.0&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下载完成后，将对应exe文件放在你自己设定的文件夹，设置环境变量&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;hugo version
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;有输出版本号，即为配置成功&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;img&#34; loading=&#34;lazy&#34; src=&#34;../../../../../%25E5%258D%259A%25E5%25AE%25A2%25E5%25BB%25BA%25E7%25AB%258B/%25E5%25A6%2582%25E4%25BD%2595%25E4%25BD%25BF%25E7%2594%25A8Hugo+GitHub%25E5%25BB%25BA%25E7%25AB%258B%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2.assets/image-20260728112258688-1785215365345.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;4快速建立博客框架&#34;&gt;4.快速建立博客框架&lt;/h2&gt;
+&lt;p&gt;首先选择你要访问博客项目的文件夹&lt;/p&gt;
+&lt;p&gt;在那个文件夹打开cmd&lt;/p&gt;
+&lt;p&gt;依次输入&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;&#34;&gt;&lt;code class=&#34;language-ini&#34; data-lang=&#34;ini&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在目录中为您的博客创建一个以myblog命名的文件夹目录结构&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hugo new site myblog&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 将当前目录更改为博客的根目录&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;cd myblog&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在当前目录中初始化一个空的 Git 存储库&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;git init&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 将PaperMod主题克隆到博客目录结构中，并将其作为Git子模块themes添加到您的博客中&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;git submodule add --depth&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 在博客配置文件hugo.toml(位于根目录)中添加一行，表明为PaperMod主题&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;echo &amp;#39;theme&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#39;PaperMod&amp;#39; &amp;gt;&amp;gt; hugo.toml&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;# 启动Hugo的开发服务器来预览博客&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;hugo server&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt=&#34;image-20260728010450044&#34; loading=&#34;lazy&#34; src=&#34;../../../../../%E5%8D%9A%E5%AE%A2%E5%BB%BA%E7%AB%8B/%25E5%25A6%2582%25E4%25BD%2595%25E4%25BD%25BF%25E7%2594%25A8Hugo+GitHub%25E5%25BB%25BA%25E7%25AB%258B%25E4%25B8%25AA%25E4%25BA%25BA%25E5%258D%259A%25E5%25AE%25A2.assets/image-20260728010450044.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;5向网站添加新页面&#34;&gt;5.向网站添加新页面&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;# posts为你文章存储的文件夹名，可任取
+# 默认生成路径在content文件夹下
+#主要md文件必须以index命名
+hugo new posts/文章标题/index.md
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用编辑器打开创建的index.md可以看到其默认内容&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;date = &amp;#39;2026-07-28T01:21:07+08:00&amp;#39;
+draft = true
+title = &amp;#39;Hello_world&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里draft为true，代表处于草稿状态&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>
