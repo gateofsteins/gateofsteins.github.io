@@ -3,11 +3,7 @@ date = '2026-07-28T13:18:29+08:00'
 draft = false
 title = '如何利用Github Pages和hugo建立自己的博客'
 
-+++
-
-# 使用Hugo + Github Pages建立个人博客
-
-
+---
 
 注意：搭建时环境为windows 11
 

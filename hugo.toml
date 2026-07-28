@@ -1,4 +1,4 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://gateofsteins.github.io/'
 locale = 'zh-CN'
 title = 'My New Hugo Project'
 theme = 'PaperMod'
