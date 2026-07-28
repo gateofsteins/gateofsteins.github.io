@@ -345,7 +345,7 @@ git push origin main
 日常发布文章命令
 
 ```
-hugo new [posts]/[name]/index.md
+hugo new posts/[name]/index.md
 hugo server -D
 hugo
 git status
@@ -354,3 +354,11 @@ git commit -m '[描述信息]'
 git push origin main
 ```
 
+
+
+### 一些别的注意点
+
+ 	1. 不要随便修改md中默认生成的内容，你的文章标题是根据md默认内容中的title决定的
+   	2. 图片资源等配置参考的是https://www.cnblogs.com/liumylay/articles/17936667.html，其中我选择typora作为md文件编辑器，下面是我的设置，可以避免上传后，图片找不到的问题
+
+![image-20260728134701263](index.assets/image-20260728134701263.png)
