@@ -4,27 +4,37 @@ defaultContentLanguage = 'zh'
 title = 'Gate of Steins'
 theme = 'PaperMod'
 
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+
 [params]
   env = 'production'
   description = '网络安全、技术实践与学习笔记'
   author = 'Gate of Steins'
+  mainSections = ['posts']
   defaultTheme = 'auto'
   disableThemeToggle = false
   ShowReadingTime = true
+  ShowWordCount = true
+  ShowLastMod = true
   ShowShareButtons = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowToc = true
   TocOpen = true
-
-  [params.homeInfoParams]
-    Title = '你好，欢迎来到 Gate of Steins 👋'
-    Content = '记录网络安全、Hugo 建站与持续学习。'
-
   [[params.socialIcons]]
     name = 'github'
     url = 'https://github.com/gateofsteins'
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.35
+    minMatchCharLength = 2
+    keys = ['title', 'permalink', 'summary', 'content']
 
 [[menu.main]]
   identifier = 'posts'
@@ -43,3 +53,9 @@ theme = 'PaperMod'
   name = '标签'
   url = '/tags/'
   weight = 30
+
+[[menu.main]]
+  identifier = 'search'
+  name = '搜索'
+  url = '/search/'
+  weight = 40
