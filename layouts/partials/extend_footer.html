@@ -1,0 +1,14 @@
+{{- if site.Params.backgroundImages }}
+<script>
+(function() {
+  var bg = document.getElementById('page-bg');
+  if (!bg) return;
+  try {
+    var images = JSON.parse(bg.getAttribute('data-bg-images') || '[]');
+    if (images.length > 0) {
+      bg.style.backgroundImage = "url('" + images[Math.floor(Math.random() * images.length)] + "')";
+    }
+  } catch(e) {}
+})();
+</script>
+{{- end }}

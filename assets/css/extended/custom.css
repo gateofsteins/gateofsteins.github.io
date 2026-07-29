@@ -109,20 +109,6 @@
   content: "";
 }
 
-/* 自定义背景图 */
-.hero-has-bg {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.hero-bg-overlay {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: linear-gradient(135deg, rgb(7 18 31 / 85%) 0%, rgb(12 33 49 / 70%) 50%, rgb(16 45 67 / 75%) 100%);
-}
-
 .hero-grid {
   position: absolute;
   z-index: -1;

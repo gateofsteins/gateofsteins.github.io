@@ -1,0 +1,24 @@
+{{- if site.Params.backgroundImages }}
+<style>
+#page-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#page-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: rgb(247 249 252 / 88%);
+}
+
+[data-theme="dark"] #page-bg::before {
+  background: rgb(7 18 31 / 88%);
+}
+</style>
+{{- end }}
