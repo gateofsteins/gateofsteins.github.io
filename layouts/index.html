@@ -2,9 +2,11 @@
 {{- $posts := where site.RegularPages "Section" "posts" }}
 {{- $posts = where $posts "Draft" false }}
 {{- $posts = $posts.ByDate.Reverse }}
+{{- $bgImage := site.Params.backgroundImage | default "" }}
 
 <div class="home-shell">
-  <section class="landing-hero" aria-labelledby="site-intro-title">
+  <section class="landing-hero{{ if $bgImage }} hero-has-bg{{ end }}" aria-labelledby="site-intro-title"{{ if $bgImage }} style="background-image: url('{{ $bgImage }}');"{{ end }}>
+    {{- if $bgImage }}<div class="hero-bg-overlay" aria-hidden="true"></div>{{ end }}
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-orb hero-orb--one" aria-hidden="true"></div>
     <div class="hero-orb hero-orb--two" aria-hidden="true"></div>

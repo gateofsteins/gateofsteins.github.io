@@ -23,6 +23,12 @@ theme = 'PaperMod'
   ShowCodeCopyButtons = true
   ShowToc = true
   TocOpen = true
+
+  # 自定义首页 Hero 背景图（可选）
+  # 图片放在 static/images/ 目录下，例如 /images/bg.jpg
+  # 也支持外部 URL，例如 https://example.com/bg.jpg
+  # backgroundImage = '/images/bg.jpg'
+
   [[params.socialIcons]]
     name = 'github'
     url = 'https://github.com/gateofsteins'
