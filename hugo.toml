@@ -24,10 +24,9 @@ theme = 'PaperMod'
   ShowToc = true
   TocOpen = true
 
-  # 自定义首页 Hero 背景图（可选）
-  # 图片放在 static/images/ 目录下，例如 /images/bg.jpg
-  # 也支持外部 URL，例如 https://example.com/bg.jpg
-  # backgroundImage = '/images/bg.jpg'
+  # 自定义首页 Hero 背景图（可选），支持多张随机切换
+  # 图片放在 static/images/ 目录下，每次刷新随机显示一张
+  # backgroundImages = ['/images/bg1.png']
 
   [[params.socialIcons]]
     name = 'github'
