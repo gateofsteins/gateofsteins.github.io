@@ -1,0 +1,110 @@
+{{ define "main" }}
+<article class="post-single" itemscope itemtype="http://schema.org/BlogPosting">
+
+  {{- /* 路径式面包屑 */}}
+  <div class="breadcrumbs">
+    <a href="{{ "" | relLangURL }}">~/</a><span class="sep">/</span>
+    <a href="{{ "posts/" | relLangURL }}">posts</a><span class="sep">/</span>
+    <span itemprop="name">{{ path.Base .File.Dir | default .Title }}</span>
+  </div>
+
+  {{- /* 文章头 */}}
+  <header class="post-header">
+    <div class="reading-tools" aria-label="阅读工具">
+      <button class="font-btn" data-dir="-1" title="减小字号" aria-label="减小字号">A−</button>
+      <button class="font-btn" data-dir="0" title="重置字号" aria-label="重置字号">⟲</button>
+      <button class="font-btn" data-dir="1" title="增大字号" aria-label="增大字号">A+</button>
+    </div>
+
+    <h1 class="post-title" itemprop="name">{{ .Title }}</h1>
+    {{- if .Description }}
+    <p class="post-description">{{ .Description }}</p>
+    {{- end }}
+
+    <div class="post-meta">
+      <span class="meta-item">DATE <em style="color:var(--neon2);font-style:normal">{{ .Date.Format "2006-01-02" }}</em></span>
+      <span class="sep">·</span>
+      <span class="meta-item">READ <em style="color:var(--neon2);font-style:normal">{{ .ReadingTime }}</em> min</span>
+      <span class="sep">·</span>
+      <span class="meta-item">WORDS <em style="color:var(--neon2);font-style:normal">{{ .WordCount }}</em></span>
+      {{- if .Site.Params.ShowPostViews }}
+      <span class="sep">·</span>
+      <span class="meta-item post-views" data-path="{{ .RelPermalink }}" title="本站阅读量">VIEWS <em style="font-style:normal">—</em></span>
+      {{- end }}
+    </div>
+  </header>
+
+  {{- /* 目录（侧边栏） */}}
+  {{- if (.Param "ShowToc") }}
+  {{- partial "toc.html" . }}
+  {{- end }}
+
+  {{- /* 正文 */}}
+  <div class="post-content" id="post-content" itemprop="articleBody">
+    {{- if not (.Param "ShowToc") }}
+    <div style="min-height:8px"></div>
+    {{- end }}
+    {{- .Content }}
+  </div>
+
+  {{- /* 标签 */}}
+  {{- if .Params.tags }}
+  <ul class="post-tags" aria-label="标签">
+    {{- range .Params.tags }}
+    <li><a href="{{ "/tags/" | relLangURL }}{{ . | urlize }}">{{ . }}</a></li>
+    {{- end }}
+  </ul>
+  {{- end }}
+
+  {{- /* 上一篇/下一篇 */}}
+  {{- if or .PrevInSection .NextInSection }}
+  <nav class="post-nav">
+    {{- with .NextInSection }}
+    <a href="{{ .Permalink }}" class="nav-next">
+      <span class="nav-label">← PREV_FILE</span>
+      <span class="nav-title">{{ .Title }}</span>
+    </a>
+    {{- else }}<span></span>{{- end }}
+    {{- with .PrevInSection }}
+    <a href="{{ .Permalink }}" class="nav-prev">
+      <span class="nav-label">NEXT_FILE →</span>
+      <span class="nav-title">{{ .Title }}</span>
+    </a>
+    {{- else }}<span></span>{{- end }}
+  </nav>
+  {{- end }}
+
+  {{- /* 相关文章 */}}
+  {{- $tags := .Params.tags }}
+  {{- $related := slice }}
+  {{- range $tags }}
+    {{- $pages := where (where site.RegularPages "Section" "posts") "Draft" false }}
+    {{- $related = union $related (where $pages "Params.tags" "intersect" (slice .)) }}
+  {{- end }}
+  {{- $related = where $related "Permalink" "ne" .Permalink }}
+  {{- if lt (len $related) 3 }}
+    {{- $fallback := where (where site.RegularPages "Section" "posts") "Draft" false | complement $related }}
+    {{- $fallback = where $fallback "Permalink" "ne" .Permalink }}
+    {{- $related = union $related (first (sub 3 (len $related)) $fallback) }}
+  {{- end }}
+  {{- with first 3 $related }}
+  <section class="related-posts" aria-label="相关文章">
+    <h2 class="related-title">相关推荐</h2>
+    <div class="related-grid">
+      {{- range . }}
+      <a class="related-card" href="{{ .RelPermalink }}">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+        <h3>{{ .Title }}</h3>
+        <p>{{ .Summary | plainify | truncate 80 }}</p>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* 评论区 */}}
+  {{- if (.Param "comments") }}
+  {{- partial "comments.html" . }}
+  {{- end }}
+</article>
+{{ end }}

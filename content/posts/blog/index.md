@@ -2,10 +2,12 @@
 date = '2026-07-28T13:18:29+08:00'
 draft = false
 title = '如何利用Github Pages和hugo建立自己的博客'
+tags = ['hugo', 'github-pages', '博客搭建', '教程']
+comments = true
 
 +++
 
-# 使用Hugo + Github Pages建立个人博客
+## 使用Hugo + Github Pages建立个人博客
 
 
 

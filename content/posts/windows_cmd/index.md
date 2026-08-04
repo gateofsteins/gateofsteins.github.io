@@ -2,6 +2,8 @@
 date = '2026-07-28T15:42:51+08:00'
 draft = false
 title = 'windows常用命令总结'
+tags = ['windows', '命令行', '网络安全']
+comments = true
 
 +++
 

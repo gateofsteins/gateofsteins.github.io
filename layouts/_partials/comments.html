@@ -1,0 +1,42 @@
+{{- $giscus := site.Params.giscus }}
+<section class="giscus-comments" aria-label="评论区">
+  <h2 class="comments-title">评论</h2>
+  {{- if and $giscus.repo $giscus.repoId $giscus.categoryId }}
+  <div class="giscus" id="giscus-comments"></div>
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ $giscus.repo }}"
+    data-repo-id="{{ $giscus.repoId }}"
+    data-category="{{ $giscus.category | default "Announcements" }}"
+    data-category-id="{{ $giscus.categoryId }}"
+    data-mapping="{{ $giscus.mapping | default "pathname" }}"
+    data-strict="{{ $giscus.strict | default "0" }}"
+    data-reactions-enabled="{{ $giscus.reactionsEnabled | default "1" }}"
+    data-emit-metadata="{{ $giscus.emitMetadata | default "0" }}"
+    data-input-position="{{ $giscus.inputPosition | default "top" }}"
+    data-theme="dark"
+    data-lang="{{ $giscus.lang | default "zh-CN" }}"
+    data-loading="{{ $giscus.loading | default "lazy" }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+  <script>
+    /* giscus 主题跟随站点主题切换 */
+    var themeToggleBtn = document.getElementById('theme-toggle');
+    function syncGiscusTheme() {
+      var iframe = document.querySelector('.giscus-frame');
+      if (!iframe) return;
+      var theme = document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+      var message = { setConfig: { theme: theme } };
+      iframe.contentWindow.postMessage(message, 'https://giscus.app');
+    }
+    if (themeToggleBtn) themeToggleBtn.addEventListener('click', function() {
+      setTimeout(syncGiscusTheme, 600);
+    });
+    window.addEventListener('load', function() {
+      setTimeout(syncGiscusTheme, 1500);
+    });
+  </script>
+  {{- else }}
+  <p class="comments-hint">评论区待配置：在 <code>hugo.toml</code> 的 <code>[params.giscus]</code> 中填入 repoId 与 categoryId（获取方法见配置注释）即可启用 giscus 留言。</p>
+  {{- end }}
+</section>

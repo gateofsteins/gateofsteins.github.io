@@ -1,81 +1,180 @@
-{{- define "main" }}
-{{- $posts := where site.RegularPages "Section" "posts" }}
-{{- $posts = where $posts "Draft" false }}
-{{- $posts = $posts.ByDate.Reverse }}
-
+{{ define "main" }}
+{{- $posts := where (where site.RegularPages "Section" "posts") "Draft" false }}
+{{- $wordCount := 0 }}
+{{- range $posts }}{{ $wordCount = add $wordCount .WordCount }}{{ end }}
+{{- $allTags := site.Taxonomies.tags }}
+{{- $byYear := $posts.GroupByDate "2006" "desc" }}
 <div class="home-shell">
-  <section class="landing-hero" aria-labelledby="site-intro-title">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb--one" aria-hidden="true"></div>
-    <div class="hero-orb hero-orb--two" aria-hidden="true"></div>
-    <div class="hero-content">
-      <p class="eyebrow"><span></span> GATE OF STEINS · SECURITY NOTES</p>
-      <h1 id="site-intro-title">探索攻防，也记录成长。</h1>
-      <p class="hero-description">这里整理网络安全、技术实践与学习笔记，把每一次好奇、验证与复盘，沉淀成通往下一站的路径。</p>
-      <div class="hero-actions">
-        <a class="button button--primary" href="{{ "posts/" | relURL }}">开始阅读 <span aria-hidden="true">→</span></a>
-        <a class="button button--quiet" href="{{ "search/" | relURL }}">搜索文章</a>
+
+  {{- /* ============ HERO：终端窗口 ============ */}}
+  <section class="hero" aria-label="简介">
+    <div class="hero-copy">
+      <p class="hero-eyebrow">GATE OF STEINS · SECURITY NOTES</p>
+      <h1>探索攻防，<br />也记录<span class="hl">成长</span>。</h1>
+      <p class="hero-greeting" id="hero-greeting" aria-hidden="true"></p>
+      <p class="hero-desc">一名网络安全爱好者的技术笔记。涵盖渗透测试、内网渗透、安全工具与 CTF 思路，用文字沉淀每一次攻防实践。</p>
+      <div class="hero-cta">
+        <a class="btn btn--primary" href="{{ "posts/" | relLangURL }}">./explore --all-posts</a>
+        <a class="btn btn--ghost" href="{{ "tags/" | relLangURL }}">./scan --tags</a>
       </div>
     </div>
-    <div class="hero-panel" aria-label="网站主题">
-      <div class="panel-topline"><span class="status-dot"></span> KNOWLEDGE BASE</div>
-      <p class="panel-number">{{ len $posts }}</p>
-      <p class="panel-label">已发布文章</p>
-      <div class="panel-lines" aria-hidden="true"><i></i><i></i><i></i></div>
+
+    {{- /* 终端窗口（JS 打字输出） */}}
+    <div class="terminal" aria-label="终端演示">
+      <div class="terminal-chrome">
+        <span class="term-dot term-dot--r"></span>
+        <span class="term-dot term-dot--y"></span>
+        <span class="term-dot term-dot--g"></span>
+        <span class="term-title">root@<span class="t-g">gate-of-steins</span>:~/blog</span>
+      </div>
+      <div class="terminal-body" id="boot-terminal">
+        <p class="t-line"><span class="t-prompt"></span><span class="t-cmd">whoami</span></p>
+        <p class="t-line t-out">security_enthusiast</p>
+        <p class="t-line"><span class="t-prompt"></span><span class="t-cmd">cat intro.txt</span></p>
+        <p class="t-line t-out">"探索攻防，也记录成长 —— 网络安全学习笔记"</p>
+        <p class="t-line"><span class="t-prompt"></span><span class="t-cmd">ls ./posts</span></p>
+        <p class="t-line t-out"><span class="ok">{{ $posts | len }}</span> entry(ies) found &nbsp; <span class="info">{{ $allTags | len }}</span> tag(s) indexed</p>
+        <p class="t-line"><span class="t-prompt"></span><span class="t-cmd">curl -s node.status</span></p>
+        <p class="t-line t-out"><span class="ok">[ ONLINE ]</span> secure channel established &nbsp; <span class="warn">uptime: ∞</span></p>
+        <p class="t-line"><span class="t-prompt"></span><span class="t-cursor"></span></p>
+      </div>
     </div>
   </section>
 
-  <section class="signal-strip" aria-label="博客主题">
-    <a class="signal-card" href="{{ "posts/" | relURL }}">
-      <span class="signal-index">01</span>
-      <span><strong>技术文章</strong><small>实践、复盘与教程</small></span>
-      <b aria-hidden="true">↗</b>
+  {{- /* ============ 系统状态读数 ============ */}}
+  <section class="readouts" aria-label="站点数据">
+    <div class="readout">
+      <p class="r-label">// ARTICLES</p>
+      <p class="r-value">{{ $posts | len }}</p>
+    </div>
+    <div class="readout">
+      <p class="r-label">// TAGS</p>
+      <p class="r-value">{{ $allTags | len }}</p>
+    </div>
+    <div class="readout">
+      <p class="r-label">// WORDS</p>
+      <p class="r-value">{{- if lt $wordCount 1000 }}{{ $wordCount }}{{ else }}{{ div $wordCount 1000 }}k{{ end }}</p>
+    </div>
+    <div class="readout">
+      <p class="r-label">// NODE_TIME</p>
+      <p class="r-value" id="readout-clock">--:--:--</p>
+    </div>
+  </section>
+
+  {{- /* ============ 模块入口 ============ */}}
+  <section class="modules" aria-label="功能入口">
+    <a class="module-card" href="{{ "posts/" | relLangURL }}">
+      <span class="mod-id">[MOD-01]</span>
+      <span class="mod-body"><strong>文章</strong><small>技术笔记与实战记录</small></span>
+      <span class="mod-go">→</span>
     </a>
-    <a class="signal-card" href="{{ "tags/" | relURL }}">
-      <span class="signal-index">02</span>
-      <span><strong>知识标签</strong><small>按主题建立索引</small></span>
-      <b aria-hidden="true">↗</b>
+    <a class="module-card" href="{{ "tags/" | relLangURL }}">
+      <span class="mod-id">[MOD-02]</span>
+      <span class="mod-body"><strong>标签</strong><small>按主题检索内容</small></span>
+      <span class="mod-go">→</span>
     </a>
-    <a class="signal-card" href="{{ "archives/" | relURL }}">
-      <span class="signal-index">03</span>
-      <span><strong>时间归档</strong><small>回看学习轨迹</small></span>
-      <b aria-hidden="true">↗</b>
+    <a class="module-card" href="{{ "archives/" | relLangURL }}">
+      <span class="mod-id">[MOD-03]</span>
+      <span class="mod-body"><strong>归档</strong><small>按时间线浏览</small></span>
+      <span class="mod-go">→</span>
     </a>
   </section>
 
-  <section class="latest-section" aria-labelledby="latest-title">
-    <div class="section-heading">
+  {{- /* ============ 最新文章 ============ */}}
+  {{- with first 4 $posts }}
+  <section aria-label="最新文章">
+    <div class="section-head">
       <div>
-        <p class="eyebrow eyebrow--dark"><span></span> LATEST WRITING</p>
-        <h2 id="latest-title">最新文章</h2>
+        <p class="sec-label">// RECENT_FILES</p>
+        <h2>最新文章</h2>
       </div>
-      <a class="text-link" href="{{ "posts/" | relURL }}">查看全部 <span aria-hidden="true">→</span></a>
+      <a class="sec-more" href="{{ "posts/" | relLangURL }}">ls -la ./posts →</a>
     </div>
-
-    {{- if $posts }}
     <div class="story-grid">
-      {{- range first 6 $posts }}
-      <article class="story-card">
-        <div class="story-card__accent" aria-hidden="true"></div>
-        <div class="story-card__meta">
-          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006.01.02" }}</time>
-          {{- with .Params.tags }}<span>{{ index . 0 }}</span>{{ end }}
+      {{- range . }}
+      {{- $path := .RelPermalink }}
+      {{- $views := 0 }}
+      <a class="story-card" href="{{ .RelPermalink }}" data-path="{{ $path }}">
+        <span class="corner-tag" aria-hidden="true">TXT</span>
+        <div class="sc-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+          {{- range first 2 .Params.tags }}<span class="tag-chip">#{{ . }}</span>{{ end }}
         </div>
-        <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
-        <p>{{ .Summary | plainify | htmlUnescape | truncate 120 }}</p>
-        <footer>
-          <span>{{ .ReadingTime }} 分钟阅读</span>
-          <a href="{{ .RelPermalink }}" aria-label="阅读 {{ .Title }}">阅读文章 <span aria-hidden="true">→</span></a>
-        </footer>
-      </article>
+        <p class="sc-file">{{ path.Base .File.Dir | default .Title }}</p>
+        <h3><span class="link">{{ .Title }}</span></h3>
+        <p class="sc-summary">{{ .Summary | plainify | truncate 120 }}</p>
+        <div class="sc-foot">
+          <span>{{ .ReadingTime }} min read · {{ $views }} views</span>
+          <span class="go">open →</span>
+        </div>
+      </a>
       {{- end }}
     </div>
-    {{- else }}
-    <div class="empty-state">
-      <p>第一篇正式文章正在路上。</p>
-      <a class="text-link" href="{{ "posts/" | relURL }}">浏览文章目录 <span aria-hidden="true">→</span></a>
-    </div>
-    {{- end }}
   </section>
+  {{- else }}
+  <div class="empty-state">NO_FILES_FOUND // 还没有发布任何文章</div>
+  {{- end }}
+
+  {{- /* ============ 热门文章 + 标签云 ============ */}}
+  <section style="margin-top:52px" aria-label="热门文章">
+    <div class="section-head">
+      <div>
+        <p class="sec-label">// TOP_ACCESS</p>
+        <h2>热门文章</h2>
+      </div>
+    </div>
+    <ul class="hot-list" id="hot-list">
+      {{- range $index, $p := $posts }}
+      <li class="hot-item" data-path="{{ $p.RelPermalink }}">
+        <a href="{{ $p.RelPermalink }}">
+          <span class="hot-rank">0{{ add $index 1 }}</span>
+          <span class="hot-title">{{ $p.Title }}</span>
+          <span class="hot-views">—</span>
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </section>
+
+  {{- /* ============ 标签云 ============ */}}
+  {{- with $allTags }}
+  <section style="margin-top:52px" aria-label="标签云">
+    <div class="section-head">
+      <div>
+        <p class="sec-label">// TAG_INDEX</p>
+        <h2>标签云</h2>
+      </div>
+    </div>
+    <div class="tag-cloud">
+      {{- range .ByCount }}
+      {{- $weight := math.Min 120 (mul .Count 22) }}
+      <a class="cloud-tag" href="{{ .Page.RelPermalink }}" style="--w:{{ $weight }}">{{ .Page.Title }}<em>{{ .Count }}</em></a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- /* ============ 归档速览 ============ */}}
+  {{- with $byYear }}
+  <section style="margin-top:52px" aria-label="归档">
+    <div class="section-head">
+      <div>
+        <p class="sec-label">// ARCHIVE</p>
+        <h2>归档</h2>
+      </div>
+      <a class="sec-more" href="{{ "archives/" | relLangURL }}">find ./archive →</a>
+    </div>
+    <div class="archive-overview">
+      {{- range . }}
+      <a class="archive-year" href="{{ "archives/" | relLangURL }}">
+        <span class="year-num">{{ .Key }}</span>
+        <span class="year-bar"><i style="width:{{ math.Min 100 (mul (len .Pages) 22) }}%"></i></span>
+        <span class="year-count">{{ len .Pages }} 篇</span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
 </div>
-{{- end }}
+{{ end }}

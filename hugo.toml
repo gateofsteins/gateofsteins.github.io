@@ -22,7 +22,7 @@ theme = 'PaperMod'
   ShowBreadCrumbs = true
   ShowCodeCopyButtons = true
   ShowToc = true
-  TocOpen = true
+  TocOpen = false
 
   # 自定义首页 Hero 背景图（可选），支持多张随机切换
   # 图片放在 static/images/ 目录下，每次刷新随机显示一张
@@ -40,6 +40,25 @@ theme = 'PaperMod'
     threshold = 0.35
     minMatchCharLength = 2
     keys = ['title', 'permalink', 'summary', 'content']
+
+  # giscus 评论区配置（基于 GitHub Discussions）
+  # 使用步骤：
+  #   1. 在仓库 gateofsteins/gateofsteins.github.io 开启 Discussions
+  #   2. 访问 https://giscus.app 安装 giscus 并获取 repoId 和 categoryId
+  #   3. 把获取到的 ID 填入下面两项，评论区即生效
+  # 未配置 repoId/categoryId 前，文章页不会渲染评论区
+  [params.giscus]
+    repo = 'gateofsteins/gateofsteins.github.io'
+    repoId = ''
+    category = 'Announcements'
+    categoryId = ''
+    mapping = 'pathname'
+    strict = '0'
+    reactionsEnabled = '1'
+    emitMetadata = '0'
+    inputPosition = 'top'
+    lang = 'zh-CN'
+    loading = 'lazy'
 
 [[menu.main]]
   identifier = 'posts'
